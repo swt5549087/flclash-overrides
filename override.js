@@ -11,9 +11,12 @@ function main(config) {
     {
       name: "自动选择",
       icon: "https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png",
-      type: "select",
-      "include-all": true,
-      "exclude-filter": "(?i)香港|Hong Kong|HK|hongkong"
+      type: "fallback",
+      interval: 60,
+      timeout: 3000,
+      proxies: [
+        "非港实验节点", "非港常规节点"
+      ]
     },
     {
       name: "手动切换",
@@ -150,12 +153,55 @@ function main(config) {
       ]
     },
     {
+      name: "非港实验节点",
+      icon: "https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png",
+      "include-all": true,
+      filter: "实验",
+      "exclude-filter": "(?i)港|HK|hk|Hong Kong|HongKong|hongkong",
+      type: "url-test",
+      interval: 60,
+      timeout: 400,
+      tolerance: 100
+    },
+    {
+      name: "非港常规节点",
+      icon: "https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Auto.png",
+      "include-all": true,
+      "exclude-filter": "(?i)港|HK|hk|Hong Kong|HongKong|hongkong|实验",
+      type: "url-test",
+      interval: 300,
+      timeout: 3000,
+      tolerance: 300
+    },
+    {
       name: "香港节点",
+      icon: "https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png",
+      type: "fallback",
+      interval: 60,
+      timeout: 3000,
+      proxies: [
+        "香港-实验", "香港-常规"
+      ]
+    },
+    {
+      name: "香港-实验",
+      icon: "https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png",
+      "include-all": true,
+      filter: "(?i)(?:港|HK|hk|Hong Kong|HongKong|hongkong).*实验|实验.*(?:港|HK|hk|Hong Kong|HongKong|hongkong)",
+      type: "url-test",
+      interval: 60,
+      timeout: 400,
+      tolerance: 100
+    },
+    {
+      name: "香港-常规",
       icon: "https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Hong_Kong.png",
       "include-all": true,
       filter: "(?i)港|HK|hk|Hong Kong|HongKong|hongkong",
+      "exclude-filter": "实验",
       type: "url-test",
       interval: 300,
+      timeout: 3000,
       tolerance: 300
     },
     {
@@ -168,19 +214,63 @@ function main(config) {
     {
       name: "狮城节点",
       icon: "https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png",
+      type: "fallback",
+      interval: 60,
+      timeout: 3000,
+      proxies: [
+        "狮城-实验", "狮城-常规"
+      ]
+    },
+    {
+      name: "狮城-实验",
+      icon: "https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png",
+      "include-all": true,
+      filter: "(?i)(?:新加坡|坡|狮城|SG|Singapore).*实验|实验.*(?:新加坡|坡|狮城|SG|Singapore)",
+      type: "url-test",
+      interval: 60,
+      timeout: 400,
+      tolerance: 100
+    },
+    {
+      name: "狮城-常规",
+      icon: "https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Singapore.png",
       "include-all": true,
       filter: "(?i)新加坡|坡|狮城|SG|Singapore",
+      "exclude-filter": "实验",
       type: "url-test",
       interval: 300,
+      timeout: 3000,
       tolerance: 300
     },
     {
       name: "美国节点",
       icon: "https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png",
+      type: "fallback",
+      interval: 60,
+      timeout: 3000,
+      proxies: [
+        "美国-实验", "美国-常规"
+      ]
+    },
+    {
+      name: "美国-实验",
+      icon: "https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png",
+      "include-all": true,
+      filter: "(?i)(?:美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States).*实验|实验.*(?:美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States)",
+      type: "url-test",
+      interval: 60,
+      timeout: 400,
+      tolerance: 100
+    },
+    {
+      name: "美国-常规",
+      icon: "https://testingcf.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/United_States.png",
       "include-all": true,
       filter: "(?i)美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States",
+      "exclude-filter": "实验",
       type: "url-test",
       interval: 300,
+      timeout: 3000,
       tolerance: 400
     },
     {
@@ -210,7 +300,7 @@ function main(config) {
       "include-all": true,
       type: "select",
       proxies: [
-        "节点选择", "自动选择", "手动切换", "AI节点", "电报消息", "油管视频", "奈飞视频", "国内媒体", "国外媒体", "谷歌FCM", "微软Bing", "微软云盘", "微软服务", "苹果服务", "游戏平台", "全球直连", "广告拦截", "应用净化", "漏网之鱼", "香港节点", "台湾节点", "狮城节点", "美国节点", "日本节点", "韩国节点", "其他节点"
+        "节点选择", "自动选择", "手动切换", "AI节点", "电报消息", "油管视频", "奈飞视频", "国内媒体", "国外媒体", "谷歌FCM", "微软Bing", "微软云盘", "微软服务", "苹果服务", "游戏平台", "全球直连", "广告拦截", "应用净化", "漏网之鱼", "香港节点", "香港-实验", "香港-常规", "台湾节点", "狮城节点", "狮城-实验", "狮城-常规", "美国节点", "美国-实验", "美国-常规", "日本节点", "韩国节点", "其他节点", "非港实验节点", "非港常规节点"
       ]
     }
   ];
